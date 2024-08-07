@@ -1,0 +1,250 @@
+
+ÖZEL KARAKTERLER
+. / [ { ( ^ * + $ ?
+
+
+. (nokta) tüm karakterleri gösterir
+. (noktayı) görmek istersek \. yazmak gerekir.
+Aynı şekilde \) yaparsak metinde ) karakterlerini gösterir.
+
+ÖRNEK:
+[[ karakterlerini göstermek için \[\[ yazılmalıdır.
+
+----------------------------------------
+
+GENEL KARAKTERLER
+\d \D \w \W \s \S
+
+\d Rakam olan bütün karakterleri gösterir.
+\D Rakam olmayan diğer bütün karakterleri gösterir.
+
+Büyük harfli karekterler küçük harflilerinin tersi gibidir.
+
+\w  (word) Bütün harfleri ve _ karakterini gösterir.
+\W  (word) Bütün harfler ve _ dışındaki bütün karakterleri gösterir.
+
+\s  (space) Bütün boşluk karakterlerini gösterir.
+\S  (space) Boşluk haricindeki bütün karakterleri gösterir.
+
+----------------------------------------
+
+SINIRLAYICI KARAKTERLER
+\b \B \^ \$
+
+----------------------------------------
+\b Bulunduğu yerde string başlangıcı ve sonlarını gösterir.
+
+ÖRNEK:
+\bari
+
+kabarik
+arin
+karin
+ari
+
+burada arin ve ari ifadelerini gösterecektir. çünkü \b den sonra gelen ari ifadesi
+sadece arin ve ari ifadelerinde bir stringin (text ve rakam) başında bulunmaktadır.
+
+ÖRNEK:
+\bari\b
+
+kabarik
+arin
+karin
+ari
+
+burada sadece ari ifadesini gösterecektir. Çünkü sadece ari ifadesinde stringin başı 
+ve sonunda \b den sonra gelen ari ifadesi bulunmaktadır.
+
+
+\B Bulunduğu yerde string başlangıcı ve sonları dışındaki her yeri gösterir. İfadelerin
+arasındaki yerleri gösterir.
+
+ÖRNEK:
+\B
+
+k|a|r|i|n
+
+| ile gösterilen yerleri gösterir.
+
+
+----------------------------------------
+
+^ Karakteri ondan sonra gelen ifadenin satır başında bulunduğu durumlarda sadece o ifadeyi gösterir.
+
+ÖRNEK:
+
+^dana
+
+danalarasdfasd
+badana
+adana
+
+Burada danalarasdfasd ifadesinin başında bulunan sadece dana kısmını gösterir. badana ve adana ifadeleri 
+istenilen ifade ile başlamadığı için gösterilmez.
+
+----------------------------------------
+
+$ Karakteri ondan önce gelen ifadenin satır sonunda bulunduğu durumlarda sadece o ifadeyi gösterir.
+Yukarıdaki ^ karakterinin tersi gibidir. O satır başında olanları, bu satır sonunda olanları gösterir.
+
+ÖRNEK:
+
+225$
+
+5225
+42256
+131563225
+
+Burada 5225 ve 131563225 ifadelerinin sonunda bulunan sadece 225 kısmını gösterir. 42256 ifadesi istenilen 
+ifade ile bitmediği için gösterilmez.
+
+
+----------------------------------------
+
+GRUPLANDIRMA
+[] [^] ()
+
+[] Karakteri içine girilen bütün karakterleri tek tek arar. Sıralı olmasına gerek yoktur.
+
+ÖRNEK:
+[aib1]
+
+badana
+adana01
+birader
+
+İfalerde bulunan bütün a i b ve 1 karakterlerini gösterir. Bunların aib1 şeklinde sıralı olmasına gerek yoktur.
+
+
+ÖRNEK:
+[a-z]
+
+Burada küçük a - ve b karakterlerini göstermek yerine a dan z ye bütün küçük harfleri gösterir.
+
+
+ÖRNEK:
+[a-zA-Z0-9]
+
+Burada a dan z ye bütün küçük ve büyük harfler ile 0 dan 9 a bütün rakamları gösterir.
+
+
+ÖRNEK:
+[a-zA-Z0-9.()]
+
+Bir öncekinden fazla olarak . ( ve ) karakterlerini de gösterir. Yani yanına ne eklersek onu gösterir.
+Eğer - karakterini göstermek istersek ya başa ya da sona yazmalıyız. Ortaya yazıldığında aralık belirtecektir.
+
+
+[^] Sonrasından gelen ifadenin değili anlamına gelir.
+
+ÖRNEK:
+[^1-4]
+
+Burada 1-4 aralığındaki (1,2,3,4) karakterler hariç diğer tüm karakterleri gösterir.
+
+ÖRNEK:
+[^a-z]
+
+Burada a dan z ye bütün küçük harfler dışındaki bütün karakterleri gösterir.
+
+----------------------------------------
+
+MİKTAR BELİRLEYİCİLER
++ * ? {k} {max,min} {k,}
+
+\d\d\d ifadesi \d{3} ifadesi ile rahatlıkla yazılabilir.
+
+
++ ifadesi bir veya daha fazla anlamına gelir.
+
+ÖRNEK:
+ara\w
+
+arak
+baraka
+araba
+
+Bu ifade ara dan sonra sadece bir harf gelen ifadeleri gösterir. Yani bu örnekte
+sadece arak ifadesini gösterir.
+
+
+ÖRNEK:
+ara\w+
+
+arak
+baraka
+araba
+
+\w den sonra gelen + karakteri ile ara dan sonra bir veya daha fazla harf gelen ifadeleri gösterir. Yani bu örnekte
+arak baraka ve araba ifadelerideki ara dan sonraki karakterlerin hepsini de gösterir.
+
+
+ÖRNEK:
+ara\d+
+
+ara123
+bara1
+kara12
+
+\d den sonra gelen + karakteri ile ara dan sonra bir veya daha fazla rakam gelen ifadeleri gösterir. Yani bu örnekte
+ara123 bara1 ve kara12 ifadelerindeki ara dan sonraki karakterlerin hepsini de gösterir.
+
+
+ÖRNEK:
+\d{4,7}
+
+123456
+123
+1234
+
+Bu ifade 4 ve 7 arasındaki kadar rakam olan karakterleri gösterir. Bu örnekte 123456 ve 1234 karakterlerini gösterir.
+
+
+ÖRNEK:
+\d{6,}
+
+123456789123456789
+123456
+12345
+
+Bu ifade 6 ve daha fazla sayıda rakam olan karakterleri gösterir. Bu örnekte 123456789123456789 ve 123456 karakterlerini gösterir.
+
+
+
+* ifadesi öncesinde koyulan karakterden sınırsız sayıda koyulması halinde dahi gösterilmesini sağlar.
+
+ÖRNEK:
+ab*c
+
+abbbbbbbbbbbbbbc
+abc
+ac
+
+Burada b karakterinden kaç tane olduğu önemsizdir. abbbbbbbbbbbbbbc ve abc ifadelerini gösterir.
+
+
+
+? ifadesi var veya yok anlamına gelir. 0 veya 1 gibi.
+
+ÖRNEK:
+\d{3}(-?|\s)\d{2}(-?|\s)\d{2}
+
+123 45 67
+123-45-67
+
+Bu ifade iki örnekteki karakterleri de gösterir. Aşağıda bu ifadeyi teker teker açıklayalım.
+
+\d{3} ifadesi 3 adet rakamı gösterir.
+(-?|\s) ifadesi - olabilir de olmayabilir de veya boşluk olabilir de olmayabilir de demektir.
+\d{2} ifadesi 2 adet rakamı gösterir. Sonrakiler zaten yukarıdaki ifadeler.
+
+----------------------------------------
+
+ÖRNEK UYGULAMALAR
+
+Mail
+[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+$
+
+URLS
+^https?:\/\/(www.)?[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+$
