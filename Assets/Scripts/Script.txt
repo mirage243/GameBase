@@ -10,7 +10,7 @@ Aynı şekilde \) yaparsak metinde ) karakterlerini gösterir.
 ÖRNEK:
 [[ karakterlerini göstermek için \[\[ yazılmalıdır.
 
-----------------------------------------
+-----------------------------------------
 
 GENEL KARAKTERLER
 \d \D \w \W \s \S
